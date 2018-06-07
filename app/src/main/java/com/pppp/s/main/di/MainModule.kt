@@ -15,7 +15,7 @@ import dagger.Provides
 class MainModule(private val fragment: Fragment) {
 
     @Provides
-    fun providePresenter(model: MainModel) = MainPresenter(model)
+    fun providePresenter(model: MainModel) = MainPresenter(model,,)
 
     @Provides
     fun provideModel(factory: ViewModelProvider.Factory): MainModel =
