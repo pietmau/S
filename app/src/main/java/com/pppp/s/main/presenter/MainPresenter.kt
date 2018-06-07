@@ -7,8 +7,8 @@ import io.reactivex.disposables.CompositeDisposable
 
 class MainPresenter(
     private val model: MainModel,
-    val ioScheduler: Scheduler,
-    val mainThreadScheduler: Scheduler
+    private val ioScheduler: Scheduler,
+    private val mainThreadScheduler: Scheduler
 ) {
     private val compositeDisposable = CompositeDisposable()
 

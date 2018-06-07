@@ -6,5 +6,5 @@ import com.pppp.s.main.api.Api
 
 class RetrofitViewModelFactory(val api: Api) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = RetrofitModel(api) as T
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = CachedRetrofitModel(api,10) as T
 }

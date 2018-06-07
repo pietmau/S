@@ -5,9 +5,9 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
 import com.pppp.s.main.api.Api
-import com.pppp.s.main.api.RetrofitApi
+import com.pppp.s.main.api.NotCachedRetrofitApi
 import com.pppp.s.main.model.MainModel
-import com.pppp.s.main.model.RetrofitModel
+import com.pppp.s.main.model.CachedRetrofitModel
 import com.pppp.s.main.model.RetrofitViewModelFactory
 import com.pppp.s.main.presenter.MainPresenter
 import dagger.Module
@@ -25,12 +25,12 @@ class MainModule(private val fragment: Fragment) {
 
     @Provides
     fun provideModel(factory: ViewModelProvider.Factory): MainModel =
-        ViewModelProviders.of(fragment, factory).get(RetrofitModel::class.java)
+        ViewModelProviders.of(fragment, factory).get(CachedRetrofitModel::class.java)
 
     @Provides
     fun provideFactory(api: Api): ViewModelProvider.Factory = RetrofitViewModelFactory(api)
 
     @Provides
-    fun provideApi(): Api = RetrofitApi(BASE_URL)
+    fun provideApi(): Api = NotCachedRetrofitApi(BASE_URL)
 
 }
