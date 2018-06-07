@@ -8,20 +8,25 @@ import android.view.ViewGroup
 import com.pppp.s.R
 import com.pppp.s.application.SApp
 import com.pppp.s.main.di.MainModule
+import com.pppp.s.main.presenter.MainPresenter
+import javax.inject.Inject
 
-class MainFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
+class MainFragment : Fragment(), MainView {
+    @Inject
+    lateinit var presenter: MainPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        (activity?.application as? SApp)?.appComponent?.with(MainModule())?.inject(this)
+        (activity?.application as? SApp)?.appComponent?.with(MainModule(this))?.inject(this)
         return inflater.inflate(R.layout.main_fragment, container, false)
+        presenter.view = this
     }
 
 
+
+    companion object {
+        fun newInstance() = MainFragment()
+    }
 }
