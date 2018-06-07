@@ -8,6 +8,10 @@ import com.pppp.s.main.model.pokos.Movie
 
 class MoviesAdapter : RecyclerView.Adapter<MovieHolder>() {
     var movies: List<Movie>? = null
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun getItemCount(): Int = movies?.size ?: 0
 

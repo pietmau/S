@@ -39,7 +39,9 @@ class MainFragment : Fragment(), MainView {
         recycler.setMovies(movies)
     }
 
-    override fun onError(throwable: Throwable?) = TODO()
+    override fun onError(throwable: Throwable?) {
+
+    }
 
     companion object {
         fun newInstance() = MainFragment()

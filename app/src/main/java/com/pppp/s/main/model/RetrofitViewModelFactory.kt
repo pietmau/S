@@ -2,8 +2,9 @@ package com.pppp.s.main.model
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.pppp.s.main.api.Api
 
-class RetrofitViewModelFactory : ViewModelProvider.Factory {
+class RetrofitViewModelFactory(val api: Api) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = RetrofitModel() as T
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = RetrofitModel(api) as T
 }
