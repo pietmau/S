@@ -1,6 +1,7 @@
 package com.pppp.s.main.view
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,14 +27,18 @@ class MainFragment : Fragment(), MainView {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        searchView.setOnQueryTextListener(object : SimpleOnQueryTextListener() {
+            override fun onQueryTextChange(query: String?): Boolean {
+                return presenter.onQueryTextChange(query)
+            }
+        })
+    }
+
     override fun onResume() {
         super.onResume()
         presenter.bind(this)
-        searchView.setOnQueryTextListener(object : SimpleOnQueryTextListener() {
-            override fun onQueryTextChange(query: String?): Boolean {
-                return recycler.onQueryTextChange(query)
-            }
-        })
     }
 
     override fun onPause() {
@@ -41,12 +46,12 @@ class MainFragment : Fragment(), MainView {
         presenter.unbind()
     }
 
-    override fun onMoviesAvailable(movies: List<Movie>) {
-        recycler.setMovies(movies)
+    override fun onNewData(movies: List<Movie>) {
+        recycler.onNewData(movies)
     }
 
-    override fun onError(throwable: Throwable?) {
-
+    override fun onError(throwable: Throwable) {
+        Snackbar.make(root, throwable.localizedMessage, Snackbar.LENGTH_LONG).show()
     }
 
     companion object {

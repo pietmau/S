@@ -10,17 +10,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-
-
-class NotCachedRetrofitApi(baseUrl: String) : Api {
+class NotCachedRetrofitApi(baseUrl: String, apiTimeOutInSeconds: Long = 60) : Api {
     private val api: Api
 
     init {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val client = OkHttpClient.Builder()
-            .readTimeout(60, TimeUnit.SECONDS)
-            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(apiTimeOutInSeconds, TimeUnit.SECONDS)
+            .connectTimeout(apiTimeOutInSeconds, TimeUnit.SECONDS)
             .cache(null)//Remove cache here because we cache in the model
             .addInterceptor(interceptor)
             .build()

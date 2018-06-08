@@ -21,13 +21,7 @@ class MoviesRecycler @JvmOverloads constructor(
         adapter = MoviesAdapter()
     }
 
-
-    fun setMovies(movies: List<Movie>) {
-        moviesAdapter.movies = movies
-    }
-
-    fun onQueryTextChange(query: String?): Boolean {
-        moviesAdapter.onQueryTextChange(query)
-        return true
+    fun onNewData(movies: List<Movie>) {
+        moviesAdapter.onNewData(movies)
     }
 }

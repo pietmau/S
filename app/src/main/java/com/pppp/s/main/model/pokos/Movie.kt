@@ -20,6 +20,7 @@ data class Movie(
     @SerializedName("poster")
     @Expose
     var poster: String? = null
+
 ) : Comparable<Movie> {
 
     override fun compareTo(other: Movie) = title.compareTo(other.title)
