@@ -8,15 +8,50 @@ import android.widget.Filter
 import android.widget.Filterable
 import com.pppp.s.R
 import com.pppp.s.main.model.pokos.Movie
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 
 
 class MoviesAdapter : RecyclerView.Adapter<MovieHolder>(), Filterable {
-    private val filter: Filter = MoviesFilter(this)
+    private val filter = MoviesFilter(this)
+    private val subject = PublishSubject.create<List<Movie>>()
+    private val disposable = CompositeDisposable()
     var movies: List<Movie> = emptyList()
         set(value) {
-            field = value.toList()// We make a copy
+            field = value.toList().sorted()// We make a copy
             onMoviesFiltered(movies)
         }
+
+    init {
+        start()
+    }
+
+    fun start() {
+        val subscribe = subject
+            .subscribeOn(Schedulers.io())
+            .switchMap { data ->
+                calculateDiff(data)
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ pair ->
+                pair.second.dispatchUpdatesTo(this)
+                this.publishedMovies.clear()
+                this.publishedMovies.addAll(pair.first)
+            }, {
+
+            })
+        disposable.add(subscribe)//TODO unsubscribe
+    }
+
+    private fun calculateDiff(data: List<Movie>): Observable<Pair<List<Movie>, DiffUtil.DiffResult>>? {
+        return Observable
+            .just(
+                Pair(data, DiffUtil.calculateDiff(MoviesDiffUtilCallback(publishedMovies, data)))
+            )
+    }
 
     var publishedMovies: MutableList<Movie> = mutableListOf()
 
@@ -35,10 +70,7 @@ class MoviesAdapter : RecyclerView.Adapter<MovieHolder>(), Filterable {
     override fun getFilter(): Filter = filter
 
     fun onMoviesFiltered(newData: List<Movie>) {
-        val diffResult = DiffUtil.calculateDiff(MoviesDiffUtilCallback(publishedMovies, newData))
-        diffResult.dispatchUpdatesTo(this)
-        this.publishedMovies.clear()
-        this.publishedMovies.addAll(newData)
+        subject.onNext(newData)
     }
 
 }

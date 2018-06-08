@@ -16,7 +16,7 @@ class MoviesFilter(private val moviesAdapter: MoviesAdapter) : Filter() {
             movies = moviesAdapter.movies
         }
         results.count = movies.size
-        results.values = movies
+        results.values = movies.sorted()
         return results
     }
 
