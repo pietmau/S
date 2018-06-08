@@ -1,13 +1,12 @@
 package com.pppp.s.main.di
 
-
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
 import com.pppp.s.main.api.Api
 import com.pppp.s.main.api.NotCachedRetrofitApi
-import com.pppp.s.main.model.MainModel
 import com.pppp.s.main.model.CachedRetrofitModel
+import com.pppp.s.main.model.MainModel
 import com.pppp.s.main.model.RetrofitViewModelFactory
 import com.pppp.s.main.presenter.MainPresenter
 import dagger.Module

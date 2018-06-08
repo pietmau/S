@@ -27,5 +27,5 @@ class MoviesFilter(private val moviesAdapter: MoviesAdapter) : Filter() {
     }
 
     private fun titleOrGenreContainsQuery(movie: Movie, charSequence: CharSequence): Boolean =
-        (movie.genre?.contains(charSequence) == true) || (movie.title?.contains(charSequence) == true)
+        (movie.genre?.contains(charSequence,true) == true) || (movie.title?.contains(charSequence,true) == true)
 }

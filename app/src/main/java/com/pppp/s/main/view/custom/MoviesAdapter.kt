@@ -10,7 +10,6 @@ import com.pppp.s.R
 import com.pppp.s.main.model.pokos.Movie
 
 
-
 class MoviesAdapter : RecyclerView.Adapter<MovieHolder>(), Filterable {
     private val filter: Filter = MoviesFilter(this)
     var movies: List<Movie> = emptyList()
@@ -36,7 +35,7 @@ class MoviesAdapter : RecyclerView.Adapter<MovieHolder>(), Filterable {
     override fun getFilter(): Filter = filter
 
     fun onMoviesFiltered(newData: List<Movie>) {
-        val diffResult = DiffUtil.calculateDiff(MoviesDiffUtilCallback(newData, publishedMovies))
+        val diffResult = DiffUtil.calculateDiff(MoviesDiffUtilCallback(publishedMovies, newData))
         diffResult.dispatchUpdatesTo(this)
         this.publishedMovies.clear()
         this.publishedMovies.addAll(newData)
