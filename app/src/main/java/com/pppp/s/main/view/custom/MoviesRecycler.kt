@@ -12,15 +12,22 @@ class MoviesRecycler @JvmOverloads constructor(
     defStyle: Int = 0
 ) :
     RecyclerView(context, attrs, defStyle) {
-
     private val numOfRows: Int = 3
+    private val moviesAdapter
+        get() = (adapter as MoviesAdapter)
 
     init {
         layoutManager = GridLayoutManager(context, numOfRows)//TODO change based on orientation
         adapter = MoviesAdapter()
     }
 
-    fun setMovies(movies: List<Movie>?) {
-        (adapter as MoviesAdapter).movies = movies
+
+    fun setMovies(movies: List<Movie>) {
+        moviesAdapter.movies = movies
+    }
+
+    fun onQueryTextChange(query: String?): Boolean {
+        moviesAdapter.onQueryTextChange(query)
+        return true
     }
 }

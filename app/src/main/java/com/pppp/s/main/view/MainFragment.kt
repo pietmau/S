@@ -10,6 +10,7 @@ import com.pppp.s.application.SApp
 import com.pppp.s.main.di.MainModule
 import com.pppp.s.main.model.pokos.Movie
 import com.pppp.s.main.presenter.MainPresenter
+import com.pppp.s.main.view.custom.SimpleOnQueryTextListener
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
 
@@ -28,6 +29,11 @@ class MainFragment : Fragment(), MainView {
     override fun onResume() {
         super.onResume()
         presenter.bind(this)
+        searchView.setOnQueryTextListener(object : SimpleOnQueryTextListener() {
+            override fun onQueryTextChange(query: String?): Boolean {
+                return recycler.onQueryTextChange(query)
+            }
+        })
     }
 
     override fun onPause() {
@@ -35,7 +41,7 @@ class MainFragment : Fragment(), MainView {
         presenter.unbind()
     }
 
-    override fun onMoviesAvvailable(movies: List<Movie>?) {
+    override fun onMoviesAvailable(movies: List<Movie>) {
         recycler.setMovies(movies)
     }
 
