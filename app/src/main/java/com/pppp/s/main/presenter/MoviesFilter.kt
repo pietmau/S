@@ -15,11 +15,10 @@ class MoviesFilter(
         } else {
             movies.addAll(data)
         }
-        val results = FilterResults().apply {
+        return FilterResults().apply {
             count = movies.size
             values = movies
         }
-        return results
     }
 
     override fun publishResults(query: CharSequence?, filteredResults: FilterResults?) {
@@ -30,8 +29,8 @@ class MoviesFilter(
         titleContainsQuery(movie, query) || genreContainsQuery(movie, query)
 
     private fun genreContainsQuery(movie: Movie, query: CharSequence) =
-        (movie.genre?.contains(query, true) == true)
+        (movie.genre.contains(query, true))
 
     private fun titleContainsQuery(movie: Movie, query: CharSequence) =
-        (movie.title?.contains(query, true) == true)
+        (movie.title.contains(query, true))
 }

@@ -12,7 +12,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
-
 class MoviesAdapter : RecyclerView.Adapter<MovieHolder>() {
     private var movies: MutableList<Movie> = mutableListOf()
     private val subject = PublishSubject.create<List<Movie>>()
@@ -38,7 +37,7 @@ class MoviesAdapter : RecyclerView.Adapter<MovieHolder>() {
     private fun calculateDiff(data: List<Movie>) =
         Observable.just(Pair(data, DiffUtil.calculateDiff(MoviesDiffUtilCallback(movies, data))))
 
-    override fun getItemCount() = movies?.size ?: 0
+    override fun getItemCount() = movies.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
@@ -46,10 +45,9 @@ class MoviesAdapter : RecyclerView.Adapter<MovieHolder>() {
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) =
-        holder.bindMovie(movies?.get(position))
+        holder.bindMovie(movies.get(position))
 
     fun onNewData(newData: List<Movie>) {
         subject.onNext(newData)
     }
-
 }

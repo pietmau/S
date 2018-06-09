@@ -15,6 +15,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "io.gitlab.arturbosch.detekt" version "1.0.0.RC7"
+}
+
 allprojects {
     repositories {
         google()
@@ -24,4 +28,12 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+detekt {
+    version = "1.0.0.RC7"
+    defaultProfile {
+        input = file("app/src")
+        filters = ".*/resources/.*,.*/build/.*"
+    }
 }

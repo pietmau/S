@@ -2,7 +2,7 @@ package com.pppp.s.main.di
 
 import android.support.v4.app.Fragment
 import com.pppp.s.main.api.Api
-import com.pppp.s.main.api.NotCachedRetrofitApi
+import com.pppp.s.main.api.RetrofitApi
 import com.pppp.s.main.model.CachedModel
 import com.pppp.s.main.presenter.MainPresenter
 import dagger.Module
@@ -21,11 +21,10 @@ class MainModule(private val fragment: Fragment) {
     fun provideModel(): CachedModel = MockModel()
 
     @Provides
-    fun provideApi(): Api = NotCachedRetrofitApi(BASE_URL, API_TIMEOUT_IN_SECONDS)
+    fun provideApi(): Api = RetrofitApi(BASE_URL, API_TIMEOUT_IN_SECONDS)
 
     companion object {
         private const val BASE_URL = "https://movies-sample.herokuapp.com/"
         private const val API_TIMEOUT_IN_SECONDS = 60L
     }
-
 }

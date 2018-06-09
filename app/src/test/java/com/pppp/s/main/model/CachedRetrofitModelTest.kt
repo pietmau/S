@@ -56,5 +56,4 @@ class CachedRetrofitModelTest {
     private fun subscribe() {
         cachedModel?.subscribe()?.subscribe(TestObserver())
     }
-
 }

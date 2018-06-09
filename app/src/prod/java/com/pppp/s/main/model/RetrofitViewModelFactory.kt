@@ -5,8 +5,8 @@ import android.arch.lifecycle.ViewModelProvider
 import com.pppp.s.main.api.Api
 
 class RetrofitViewModelFactory(
-    val api: Api,
-    val cacheExpiryTimeInSeconds: Long = 10 * 60
+    private val api: Api,
+    private val cacheExpiryTimeInSeconds: Long = 10 * 60
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =

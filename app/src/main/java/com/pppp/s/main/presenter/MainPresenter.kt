@@ -11,7 +11,7 @@ class MainPresenter(
     private val model: CachedModel,
     private val ioScheduler: Scheduler,
     private val mainThreadScheduler: Scheduler,
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable(),// So that injection is optional
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable(), // So that injection is optional
     private val filterer: Filterer = FiltererImpl()
 ) {
 

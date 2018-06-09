@@ -3,7 +3,6 @@ package com.pppp.s.main.model.pokos
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-
 data class Movie(
     @SerializedName("id")
     @Expose
@@ -24,5 +23,4 @@ data class Movie(
 ) : Comparable<Movie> {
 
     override fun compareTo(other: Movie) = title.compareTo(other.title)
-
 }

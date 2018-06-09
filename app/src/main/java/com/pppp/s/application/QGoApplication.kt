@@ -5,14 +5,13 @@ import android.os.StrictMode
 import com.pppp.s.BuildConfig
 import com.squareup.leakcanary.LeakCanary
 
-
 class QGoApplication : Application() {
     lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
         if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
+            return
         }
         if (BuildConfig.DEBUG) {
             StrictMode.setThreadPolicy(
@@ -30,7 +29,7 @@ class QGoApplication : Application() {
                     .build()
             )
         }
-        LeakCanary.install(this);
+        LeakCanary.install(this)
         appComponent = DaggerAppComponent.create()
     }
 }

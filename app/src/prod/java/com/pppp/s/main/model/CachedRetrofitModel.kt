@@ -7,13 +7,10 @@ import com.pppp.s.main.model.pokos.MovieResponse
 import io.reactivex.Observable
 
 /**
- * Is retained across config changes (via Architecture Components ViewModel),
+ * It is retained across config changes via Architecture Components ViewModel,
  * it is important to unsubscribe to avoid leaks.
  *
  * Keeps track of the last attempted connection, and a new Observable is created when time expires.
- *
- * RxJava Observable.replay(window,TimeUnit) replays the events within, but outside of the time window
- * becomes empty.
  */
 class CachedRetrofitModel(
     private val api: Api,

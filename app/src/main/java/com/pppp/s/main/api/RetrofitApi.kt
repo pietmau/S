@@ -9,8 +9,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-
-class NotCachedRetrofitApi(baseUrl: String, apiTimeOutInSeconds: Long = 60) : Api {
+/** Not cached */
+class RetrofitApi(baseUrl: String, apiTimeOutInSeconds: Long = 60) : Api {
     private val api: Api
 
     init {
@@ -19,7 +19,7 @@ class NotCachedRetrofitApi(baseUrl: String, apiTimeOutInSeconds: Long = 60) : Ap
         val client = OkHttpClient.Builder()
             .readTimeout(apiTimeOutInSeconds, TimeUnit.SECONDS)
             .connectTimeout(apiTimeOutInSeconds, TimeUnit.SECONDS)
-            .cache(null)//Remove cache here because we cache in the model
+            .cache(null)//Remove cache here because the model does the caching
             .addInterceptor(interceptor)
             .build()
 
@@ -33,5 +33,4 @@ class NotCachedRetrofitApi(baseUrl: String, apiTimeOutInSeconds: Long = 60) : Ap
     }
 
     override fun getMovies(): Observable<MovieResponse> = api.getMovies()
-
 }

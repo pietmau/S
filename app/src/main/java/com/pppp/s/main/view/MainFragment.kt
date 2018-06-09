@@ -21,9 +21,11 @@ class MainFragment : Fragment(), MainView {
 
     override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?, savedInstanceState: Bundle?
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        (activity?.application as? QGoApplication)?.appComponent?.with(MainModule(this))?.inject(this)
+        (activity?.application as? QGoApplication)?.appComponent?.with(MainModule(this))
+            ?.inject(this)
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 

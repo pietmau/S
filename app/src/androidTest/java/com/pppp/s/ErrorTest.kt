@@ -15,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
 @RunWith(AndroidJUnit4::class)
 class ErrorTest {
 
@@ -35,7 +34,6 @@ class ErrorTest {
     @Test
     fun whenErrorShowsNothing() {
         assertTrue(activityRule.activity.findViewById<RecyclerView>(R.id.recycler).adapter.itemCount == 0)
-
     }
 
     companion object {
