@@ -9,17 +9,16 @@ import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
 
 fun typeSearchViewText(text: String): ViewAction {
+
     return object : ViewAction {
+
         override fun getConstraints(): Matcher<View> {
-            return CoreMatchers.allOf(
-                ViewMatchers.isDisplayed(),
-                ViewMatchers.isAssignableFrom(SearchView::class.java)
-            )
+            val displayed = ViewMatchers.isDisplayed()
+            val assignableFrom = ViewMatchers.isAssignableFrom(SearchView::class.java)
+            return CoreMatchers.allOf(displayed, assignableFrom)
         }
 
-        override fun getDescription(): String {
-            return "Change view text"
-        }
+        override fun getDescription() = "Change view text"
 
         override fun perform(uiController: UiController, view: View) {
             (view as SearchView).setQuery(text, false)

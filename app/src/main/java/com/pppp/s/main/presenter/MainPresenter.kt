@@ -11,7 +11,7 @@ class MainPresenter(
     private val model: CachedModel,
     private val ioScheduler: Scheduler,
     private val mainThreadScheduler: Scheduler,
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable(), // So that injection is optional
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable(),
     private val filterer: Filterer = FiltererImpl()
 ) {
 
@@ -28,8 +28,9 @@ class MainPresenter(
         view?.onError(it)
     }
 
-    fun onNewData(movies: List<Movie>) =
+    fun onNewData(movies: List<Movie>) {
         view?.onNewData(movies)
+    }
 
     fun unbind() {
         view = null

@@ -8,7 +8,8 @@
 - Architecture Components ViewModel to retain the cached data across config changes;
 - MVP;
 - Espresso, Mockito;
-- DiffUtil
+- DiffUtil;
+- a different layout is used in Landscape.
 
 ### Caching
 Caching is implemented in the `CachedRetrofitModel`.

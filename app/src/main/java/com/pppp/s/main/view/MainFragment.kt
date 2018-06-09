@@ -24,8 +24,8 @@ class MainFragment : Fragment(), MainView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        (activity?.application as? QGoApplication)?.appComponent?.with(MainModule(this))
-            ?.inject(this)
+        val appComponent = (activity?.application as? QGoApplication)?.appComponent
+        appComponent?.with(MainModule(this))?.inject(this)
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 

@@ -44,8 +44,9 @@ class MoviesAdapter : RecyclerView.Adapter<MovieHolder>() {
         return MovieHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MovieHolder, position: Int) =
+    override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         holder.bindMovie(movies.get(position))
+    }
 
     fun onNewData(newData: List<Movie>) {
         subject.onNext(newData)

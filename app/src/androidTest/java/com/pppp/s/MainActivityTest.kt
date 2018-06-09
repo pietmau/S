@@ -1,15 +1,15 @@
 package com.pppp.s
 
+import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.espresso.matcher.ViewMatchers.hasDescendant
-import android.support.test.espresso.matcher.ViewMatchers.withText
+import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.azimolabs.conditionwatcher.ConditionWatcher
 import com.pppp.s.main.MainActivity
 import com.pppp.s.main.di.MockModel
+import com.pppp.s.utils.OrientationInstruction
 import com.pppp.s.utils.RecyclerEmptyInstruction
 import com.pppp.s.utils.typeSearchViewText
 import org.hamcrest.CoreMatchers.not
@@ -30,6 +30,8 @@ class MainActivityTest {
 
     @Test
     fun whenGetsMoviesTheyShow() {
+        activityRule.getActivity().setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+        ConditionWatcher.waitForCondition(OrientationInstruction(activityRule.activity))
         onView(withId(R.id.recycler)).check(matches(hasDescendant(withText(LUCY))))
     }
 
