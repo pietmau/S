@@ -18,12 +18,8 @@ class MoviesAdapter : RecyclerView.Adapter<MovieHolder>() {
     private val subject = PublishSubject.create<List<Movie>>()
     private val disposable = CompositeDisposable()
 
-    init {
-        bind()
-    }
-
     fun bind() {
-        val subscribe = subject //TODO Unsubscribe
+        val subscribe = subject
             .subscribeOn(Schedulers.io())
             .switchMap { data -> calculateDiff(data) }
             .observeOn(AndroidSchedulers.mainThread())
@@ -33,6 +29,10 @@ class MoviesAdapter : RecyclerView.Adapter<MovieHolder>() {
                 movies.addAll(pair.first)
             }, { })
         disposable.add(subscribe)
+    }
+
+    fun unbind() {
+        disposable.clear()
     }
 
     private fun calculateDiff(data: List<Movie>) =

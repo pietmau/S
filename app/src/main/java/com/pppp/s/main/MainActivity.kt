@@ -1,7 +1,7 @@
 package com.pppp.s.main
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.pppp.s.R
 import com.pppp.s.main.view.MainFragment
 

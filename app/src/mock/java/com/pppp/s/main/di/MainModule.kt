@@ -5,8 +5,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
 import com.pppp.s.main.api.Api
 import com.pppp.s.main.api.NotCachedRetrofitApi
+import com.pppp.s.main.model.CachedModel
 import com.pppp.s.main.model.CachedRetrofitModel
-import com.pppp.s.main.model.CahedModel
 import com.pppp.s.main.model.RetrofitViewModelFactory
 import com.pppp.s.main.presenter.MainPresenter
 import dagger.Module
@@ -16,16 +16,14 @@ import io.reactivex.schedulers.Schedulers
 
 @Module
 class MainModule(private val fragment: Fragment) {
-    private val BASE_URL = "https://movies-sample.herokuapp.com/"
-    private val CACHE_TIMEOUT_IN_MINUTES = 10L
-    private val API_TIMEOUT_IN_SECONDS = 60L
+
 
     @Provides
-    fun providePresenter(model: CahedModel) =
+    fun providePresenter(model: CachedModel) =
         MainPresenter(model, Schedulers.io(), AndroidSchedulers.mainThread())
 
     @Provides
-    fun provideModel(factory: ViewModelProvider.Factory): CahedModel =
+    fun provideModel(factory: ViewModelProvider.Factory): CachedModel =
         ViewModelProviders.of(fragment, factory).get(CachedRetrofitModel::class.java)
 
     @Provides
@@ -34,5 +32,11 @@ class MainModule(private val fragment: Fragment) {
 
     @Provides
     fun provideApi(): Api = NotCachedRetrofitApi(BASE_URL, API_TIMEOUT_IN_SECONDS)
+
+    companion object {
+        private const val BASE_URL = "https://movies-sample.herokuapp.com/"
+        private const val CACHE_TIMEOUT_IN_MINUTES = 10L
+        private const val API_TIMEOUT_IN_SECONDS = 60L
+    }
 
 }

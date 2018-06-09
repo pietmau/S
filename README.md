@@ -4,3 +4,5 @@
 Diff utils
 Filter
 Dager
+design could be better
+Data are chache using RX java (other approaches are possible)

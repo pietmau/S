@@ -17,11 +17,20 @@ class MoviesRecycler @JvmOverloads constructor(
         get() = (adapter as MoviesAdapter)
 
     init {
-        layoutManager = GridLayoutManager(context, numOfRows)//TODO change based on orientation
+        //TODO change based on orientation
+        layoutManager = GridLayoutManager(context, numOfRows)
         adapter = MoviesAdapter()
     }
 
     fun onNewData(movies: List<Movie>) {
         moviesAdapter.onNewData(movies)
+    }
+
+    fun bind() {
+        moviesAdapter.bind()
+    }
+
+    fun unbind() {
+        moviesAdapter.unbind()
     }
 }

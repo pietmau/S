@@ -1,19 +1,20 @@
 package com.pppp.s.main.presenter
 
-import com.pppp.s.main.model.CahedModel
+import com.pppp.s.main.model.CachedModel
 import com.pppp.s.main.model.pokos.Movie
 import com.pppp.s.main.view.MainView
-import com.pppp.s.main.view.custom.MoviesFilter
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class MainPresenter(
-    private val model: CahedModel,
+    private val model: CachedModel,
     private val ioScheduler: Scheduler,
-    private val mainThreadScheduler: Scheduler
+    private val mainThreadScheduler: Scheduler,
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable(),// So that injection is optional
+    private val filterer: Filterer = FiltererImpl()
 ) {
-    private val compositeDisposable = CompositeDisposable()
+
     private var view: MainView? = null
 
     fun bind(view: MainView) {
@@ -36,7 +37,8 @@ class MainPresenter(
     }
 
     fun onQueryTextChange(query: String?): Boolean {
-        val disposable = getMovies().map { MoviesFilter(it, this).filter(query) }//TODO UNSUBSCRIBE
+        val disposable = getMovies()
+            .map { movies -> filterer.filter(movies, query, this) }
             .subscribe({}, {})
         compositeDisposable.add(disposable)
         return true

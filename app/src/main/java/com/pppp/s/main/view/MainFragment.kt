@@ -38,11 +38,13 @@ class MainFragment : Fragment(), MainView {
 
     override fun onResume() {
         super.onResume()
+        recycler.bind()
         presenter.bind(this)
     }
 
     override fun onPause() {
         super.onPause()
+        recycler.unbind()
         presenter.unbind()
     }
 
