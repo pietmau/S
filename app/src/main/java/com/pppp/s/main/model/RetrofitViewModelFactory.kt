@@ -6,9 +6,9 @@ import com.pppp.s.main.api.Api
 
 class RetrofitViewModelFactory(
     val api: Api,
-    val cacheExpiryTimeInMinutes: Long = 10
+    val cacheExpiryTimeInSeconds: Long = 10 * 60
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        CachedRetrofitModel(api, cacheExpiryTimeInMinutes) as T
+        CachedRetrofitModel(api, cacheExpiryTimeInSeconds = cacheExpiryTimeInSeconds) as T
 }

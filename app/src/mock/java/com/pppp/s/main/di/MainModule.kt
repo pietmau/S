@@ -28,14 +28,14 @@ class MainModule(private val fragment: Fragment) {
 
     @Provides
     fun provideFactory(api: Api): ViewModelProvider.Factory =
-        RetrofitViewModelFactory(api, CACHE_TIMEOUT_IN_MINUTES)
+        RetrofitViewModelFactory(api, CACHE_TIMEOUT_IN_SECONDS)
 
     @Provides
     fun provideApi(): Api = NotCachedRetrofitApi(BASE_URL, API_TIMEOUT_IN_SECONDS)
 
     companion object {
         private const val BASE_URL = "https://movies-sample.herokuapp.com/"
-        private const val CACHE_TIMEOUT_IN_MINUTES = 10L
+        private const val CACHE_TIMEOUT_IN_SECONDS = 15L
         private const val API_TIMEOUT_IN_SECONDS = 60L
     }
 
