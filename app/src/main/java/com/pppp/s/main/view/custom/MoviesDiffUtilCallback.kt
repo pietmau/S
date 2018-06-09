@@ -20,5 +20,4 @@ class MoviesDiffUtilCallback(
     // Therefore we don't need to implement getPayload() TODO
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
         oldList.get(oldItemPosition).equals(newList.get(newItemPosition))
-
 }

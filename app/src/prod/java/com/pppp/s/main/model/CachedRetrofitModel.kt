@@ -7,20 +7,19 @@ import com.pppp.s.main.model.pokos.MovieResponse
 import io.reactivex.Observable
 
 /**
- * The Model is retained across config changes via Architecture Components ViewModel,
- * it is important to unsubscribe to avoid memory leaks.
+ * Is retained across config changes (via Architecture Components ViewModel),
+ * it is important to unsubscribe to avoid leaks.
  *
- * Keeps track of the last successful connection, and a new Observable is created if the previous one is expired.
+ * Keeps track of the last attempted connection, and a new Observable is created when time expires.
  *
- * Using RxJava replay(long,TimeUnit) replays the events within the time window, but outside of it becomes empty.
- *
+ * RxJava Observable.replay(window,TimeUnit) replays the events within, but outside of the time window
+ * becomes empty.
  */
 class CachedRetrofitModel(
     private val api: Api,
     private val cacheExpiryTimeInSeconds: Long = 10 * 60
 ) : ViewModel(),
     CachedModel {
-
     private var lastConnectionTime = 0L
 
     private var cachedObservable: Observable<MovieResponse> = Observable.empty()
@@ -38,8 +37,7 @@ class CachedRetrofitModel(
         (System.currentTimeMillis() - lastConnectionTime) > cacheExpiryTimeInSeconds * 1000
 
     private fun queryApi(api: Api) = api.getMovies()
-        // Stores the last successful connection, called only at the time of the first subscription
+        // Stores the last connection (successful or not), called only at the time of the first subscription
         .doOnComplete { lastConnectionTime = System.currentTimeMillis() }
-        .cache()// Cached so that new connections do not occur
-
+        .cache()// Cached so that further connections do not occur
 }

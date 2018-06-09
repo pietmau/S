@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pppp.s.R
-import com.pppp.s.application.SApp
+import com.pppp.s.application.QGoApplication
 import com.pppp.s.main.di.MainModule
 import com.pppp.s.main.model.pokos.Movie
 import com.pppp.s.main.presenter.MainPresenter
@@ -23,7 +23,7 @@ class MainFragment : Fragment(), MainView {
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        (activity?.application as? SApp)?.appComponent?.with(MainModule(this))?.inject(this)
+        (activity?.application as? QGoApplication)?.appComponent?.with(MainModule(this))?.inject(this)
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 

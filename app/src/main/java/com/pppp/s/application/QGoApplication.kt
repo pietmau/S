@@ -6,7 +6,7 @@ import com.pppp.s.BuildConfig
 import com.squareup.leakcanary.LeakCanary
 
 
-class SApp : Application() {
+class QGoApplication : Application() {
     lateinit var appComponent: AppComponent
 
     override fun onCreate() {

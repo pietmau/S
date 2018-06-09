@@ -9,8 +9,10 @@ import kotlinx.android.synthetic.main.movie_item.view.*
 class MovieHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bindMovie(movie: Movie) {
-        itemView.image.loadImage(movie.poster)
-        itemView.genre.text = movie.genre
-        itemView.title.text = movie.title
+        itemView.apply {
+            image.loadImage(movie.poster)
+            genre.text = movie.genre
+            title.text = movie.title
+        }
     }
 }

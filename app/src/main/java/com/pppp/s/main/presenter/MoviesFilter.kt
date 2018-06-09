@@ -10,8 +10,8 @@ class MoviesFilter(
 
     override fun performFiltering(query: CharSequence?): FilterResults {
         val movies = mutableListOf<Movie>()
-        if (!query.isNullOrEmpty()) {
-            movies.addAll(data.filter { movie -> titleOrGenreContainsQuery(movie, query!!) })
+        if (query != null) {
+            movies.addAll(data.filter { movie -> titleOrGenreContainsQuery(movie, query) })
         } else {
             movies.addAll(data)
         }
