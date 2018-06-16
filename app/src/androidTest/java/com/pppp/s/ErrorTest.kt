@@ -8,7 +8,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import com.pppp.s.main.MainActivity
-import com.pppp.s.mocks.MockModel
+import com.pppp.s.utils.DaggerTestRule
 import io.reactivex.Observable
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -19,12 +19,11 @@ import org.junit.runner.RunWith
 class ErrorTest {
 
     @get:Rule
+    var dependencyInjectionRule = DaggerTestRule(Observable.error(Exception(ERROR)))
+
+    @get:Rule
     var activityRule: ActivityTestRule<MainActivity> =
-        object : ActivityTestRule<MainActivity>(MainActivity::class.java) {
-            override fun beforeActivityLaunched() {
-                MockModel.observable = Observable.error(Exception(ERROR))
-            }
-        }
+        ActivityTestRule<MainActivity>(MainActivity::class.java)
 
     @Test
     fun whenErrorShowSnackBar() {

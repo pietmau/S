@@ -1,48 +1,32 @@
 package com.pppp.s
 
 import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.azimolabs.conditionwatcher.ConditionWatcher
-import com.pppp.s.application.QGoApplication
 import com.pppp.s.main.MainActivity
-import com.pppp.s.mocks.MockModel
+import com.pppp.s.utils.DaggerTestRule
 import com.pppp.s.utils.OrientationInstruction
 import com.pppp.s.utils.RecyclerEmptyInstruction
 import com.pppp.s.utils.typeSearchViewText
 import org.hamcrest.CoreMatchers.not
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
-import org.junit.runners.model.Statement
 
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
     @get:Rule
-    var dependencyInjectionRule = TestRule { base, description ->
-        object : Statement() {
-            override fun evaluate() {
-                val app =
-                    InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as QGoApplication
-                //app.appComponent = DaggerM
-            }
-        }
-    }
+    var dependencyInjectionRule = DaggerTestRule(createObservableFromJson())
 
     @get:Rule
     var activityRule: ActivityTestRule<MainActivity> =
-        object : ActivityTestRule<MainActivity>(MainActivity::class.java) {
-            override fun beforeActivityLaunched() {
-                MockModel.observable = createObservableFromJson()
-            }
-        }
+        ActivityTestRule<MainActivity>(MainActivity::class.java)
 
     @Test
     fun whenGetsMoviesTheyShow() {
