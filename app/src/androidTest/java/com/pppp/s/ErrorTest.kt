@@ -8,7 +8,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import com.pppp.s.main.MainActivity
-import com.pppp.s.main.di.MockModel
+import com.pppp.s.mocks.MockModel
 import io.reactivex.Observable
 import org.junit.Assert.assertTrue
 import org.junit.Rule

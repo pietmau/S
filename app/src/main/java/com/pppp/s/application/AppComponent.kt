@@ -1,14 +1,15 @@
 package com.pppp.s.application
 
 import com.pppp.s.main.MainActivity
-import com.pppp.s.main.di.MainSubComponent
-import dagger.Component
 import com.pppp.s.main.di.MainModule
+import com.pppp.s.main.view.MainFragment
+import dagger.Component
 
-@Component(modules = arrayOf(AppModule::class))
-interface AppComponent {
+@Component(modules = arrayOf(AppModule::class, MainModule::class))
+interface AppComponent : Injector {
 
     fun inject(mainActivity: MainActivity)
 
-    fun with(mainModule: MainModule): MainSubComponent
+    fun inject(mainFragment: MainFragment)
+
 }

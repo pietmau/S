@@ -19,16 +19,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    flavorDimensions "dimension"
-
-    productFlavors {
-        prod {
-            dimension "dimension"
-        }
-        mock {
-            dimension "dimension"
-        }
-    }
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -62,6 +52,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.azimolabs.conditionwatcher:conditionwatcher:0.2'
+    kaptAndroidTest "com.google.dagger:dagger-compiler:2.16"
 }
 
 

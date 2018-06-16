@@ -4,7 +4,7 @@ import android.app.Application
 import com.squareup.leakcanary.LeakCanary
 
 class QGoApplication : Application() {
-    lateinit var appComponent: AppComponent
+    lateinit var appComponent: Injector
 
     override fun onCreate() {
         super.onCreate()
@@ -12,6 +12,6 @@ class QGoApplication : Application() {
             return
         }
         LeakCanary.install(this)
-        appComponent = DaggerAppComponent.create()
+        appComponent = DaggerAppComponent.builder().build()
     }
 }
