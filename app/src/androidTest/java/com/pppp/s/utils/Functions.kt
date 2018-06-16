@@ -8,20 +8,20 @@ import android.view.View
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
 
-fun typeSearchViewText(text: String): ViewAction {
+fun typeSearchViewText(text: String) = TypeSearchViewText(text)
 
-    return object : ViewAction {
+class TypeSearchViewText(private val text: CharSequence) : ViewAction {
 
-        override fun getConstraints(): Matcher<View> {
-            val displayed = ViewMatchers.isDisplayed()
-            val assignableFrom = ViewMatchers.isAssignableFrom(SearchView::class.java)
-            return CoreMatchers.allOf(displayed, assignableFrom)
-        }
+    override fun getDescription() = "Change view text"
 
-        override fun getDescription() = "Change view text"
-
-        override fun perform(uiController: UiController, view: View) {
-            (view as SearchView).setQuery(text, false)
-        }
+    override fun getConstraints(): Matcher<View> {
+        val displayed = ViewMatchers.isDisplayed()
+        val assignableFrom = ViewMatchers.isAssignableFrom(SearchView::class.java)
+        return CoreMatchers.allOf(displayed, assignableFrom)
     }
+
+    override fun perform(uiController: UiController, view: View) {
+        (view as SearchView).setQuery(text, false)
+    }
+
 }
