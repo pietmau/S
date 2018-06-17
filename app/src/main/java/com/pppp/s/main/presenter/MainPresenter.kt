@@ -19,6 +19,10 @@ class MainPresenter(
 
     fun bind(view: MainView) {
         this.view = view
+        ffff()
+    }
+
+    private fun ffff() {
         val disposable =
             getMovies().subscribe({ movies -> onNewData(movies) }, { error -> onError(error) })
         compositeDisposable.add(disposable)
@@ -50,5 +54,9 @@ class MainPresenter(
             .map { list -> list.sorted() }
             .subscribeOn(ioScheduler)
             .observeOn(mainThreadScheduler)
+    }
+
+    fun refresh() {
+        ffff()
     }
 }

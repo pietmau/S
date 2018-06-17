@@ -36,6 +36,9 @@ class MainFragment : Fragment(), MainView {
                 return presenter.onQueryTextChange(query)
             }
         })
+        swipe.setOnRefreshListener {
+            presenter.refresh()
+        }
     }
 
     override fun onResume() {

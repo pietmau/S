@@ -5,10 +5,12 @@ import android.support.v4.app.Fragment
 import com.pppp.s.main.api.Api
 import com.pppp.s.main.model.CachedModel
 import com.pppp.s.main.model.ModelWithRepository
-import com.pppp.s.main.model.Repository
-import com.pppp.s.main.model.RetrofitCachedRepository
 import com.pppp.s.main.model.cache.Cache
-import com.pppp.s.main.model.cache.SimpleMemoryCache
+import com.pppp.s.main.model.cache.CompositeCache
+import com.pppp.s.main.model.cache.database.DatabaseCache
+import com.pppp.s.main.model.cache.memory.SimpleMemoryCache
+import com.pppp.s.main.model.repository.Repository
+import com.pppp.s.main.model.repository.RetrofitCachedRepository
 import com.pppp.s.main.presenter.MainPresenter
 import dagger.Module
 import dagger.Provides
@@ -29,10 +31,16 @@ class MainModule(private val fragment: Fragment) {
     ): CachedModel = ModelWithRepository(repo)
 
     @Provides
-    fun provideRepository(api: Api, cache: Cache): Repository = RetrofitCachedRepository(api, cache)
+    fun provideRepository(api: Api, cache: Cache): Repository =
+        RetrofitCachedRepository(api, cache)
 
     @Provides
-    fun provideCache(factory: CacheFactory): Cache = getSimpleMemoryCache(factory)
+    fun provideCache(factory: CacheFactory): Cache =
+        CompositeCache(
+            10 * 60 * 1000,
+            SimpleMemoryCache(),
+            DatabaseCache(fragment.requireContext())
+        )
 
     @Provides
     fun providefactory(): CacheFactory = CacheFactory(10 * 60 * 1000)
