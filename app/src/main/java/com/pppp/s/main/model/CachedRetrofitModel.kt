@@ -1,6 +1,5 @@
 package com.pppp.s.main.model
 
-import android.arch.lifecycle.ViewModel
 import com.pppp.s.main.api.Api
 import com.pppp.s.main.model.pokos.Movie
 import com.pppp.s.main.model.pokos.MovieResponse
@@ -15,8 +14,7 @@ import io.reactivex.Observable
 class CachedRetrofitModel(
     private val api: Api,
     private val cacheExpiryTimeInSeconds: Long = 10 * 60
-) : ViewModel(),
-    CachedModel {
+) : CachedModel() {
     private var lastConnectionTime = 0L
 
     private var cachedObservable: Observable<MovieResponse> = Observable.empty()

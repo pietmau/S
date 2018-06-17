@@ -4,6 +4,7 @@ import com.pppp.s.main.model.pokos.MovieResponse
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,4 +34,6 @@ class RetrofitApi(baseUrl: String, apiTimeOutInSeconds: Long = 60) : Api {
     }
 
     override fun getMovies(): Observable<MovieResponse> = api.getMovies()
+
+    override fun getMoviesSync(): Call<MovieResponse> = api.getMoviesSync()
 }
