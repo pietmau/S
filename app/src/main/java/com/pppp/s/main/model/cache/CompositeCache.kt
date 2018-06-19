@@ -12,7 +12,13 @@ class CompositeCache(
 
     override fun getMovies(): List<Movie>? = getFromMemory() ?: getFromDb()
 
-    private fun getFromMemory(): List<Movie>? = memoryCache.getMovies()
+    private fun getFromMemory(): List<Movie>? {
+        val movies = memoryCache.getMovies()
+        if (movies != null && !areExpired(movies)) {
+            return movies
+        }
+        return null
+    }
 
     private fun getFromDb(): List<Movie>? {
         val movies = databaseCache.getMovies()

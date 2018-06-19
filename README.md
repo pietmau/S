@@ -12,10 +12,12 @@
 - a different layout is used in Landscape.
 
 ### Caching
-Caching is implemented in the `CachedRetrofitModel`.
+Use http headers.
+
+~~Caching is implemented in the `CachedRetrofitModel`.
 Other approaches might include using OKHttp caching or implementing manually a memory/file cache.
 RxJava `Observable.replay(window,TimeUnit)` replays the events in the time window, but outside of
-it becomes empty.
+it becomes empty.~~
 
 
 ### TODO()

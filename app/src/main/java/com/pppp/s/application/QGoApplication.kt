@@ -12,6 +12,6 @@ class QGoApplication : Application() {
             return
         }
         LeakCanary.install(this)
-        appComponent = DaggerAppComponent.builder().build()
+        appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
     }
 }

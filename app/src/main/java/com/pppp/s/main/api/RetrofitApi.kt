@@ -2,26 +2,33 @@ package com.pppp.s.main.api
 
 import com.pppp.s.main.model.pokos.MovieResponse
 import io.reactivex.Observable
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 
-/** Not cached */
-class RetrofitApi(baseUrl: String, apiTimeOutInSeconds: Long = 60) : Api {
+/** Cached */
+class RetrofitApi(
+    baseUrl: String,
+    apiTimeOutInSeconds: Long = 60,
+    dir: File
+) : Api {
     private val api: Api
 
     init {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val logger = HttpLoggingInterceptor()
+            .apply { level = HttpLoggingInterceptor.Level.BODY }
         val client = OkHttpClient.Builder()
             .readTimeout(apiTimeOutInSeconds, TimeUnit.SECONDS)
             .connectTimeout(apiTimeOutInSeconds, TimeUnit.SECONDS)
-            .cache(null)//Remove cache here because the model does the caching
-            .addInterceptor(interceptor)
+            .cache(Cache(dir, 10 * 1024 * 1024))
+            .addInterceptor(logger)
+            .addNetworkInterceptor(TimedInterceptor())
             .build()
 
         api = Retrofit.Builder()
@@ -37,3 +44,5 @@ class RetrofitApi(baseUrl: String, apiTimeOutInSeconds: Long = 60) : Api {
 
     override fun getMoviesSync(): Call<MovieResponse> = api.getMoviesSync()
 }
+
+
