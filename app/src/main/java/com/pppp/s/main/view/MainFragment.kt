@@ -61,6 +61,10 @@ class MainFragment : Fragment(), MainView {
         Snackbar.make(root, throwable.localizedMessage, Snackbar.LENGTH_LONG).show()
     }
 
+    override fun stopRefreshing() {
+        swipe.isRefreshing = false
+    }
+
     companion object {
         fun newInstance() = MainFragment()
     }

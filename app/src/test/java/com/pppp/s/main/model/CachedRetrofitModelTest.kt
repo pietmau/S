@@ -26,13 +26,13 @@ class CachedRetrofitModelTest {
     }
 
     @Test
-    fun whenSubscribesThenGetsObservable() {
+    fun whenSubscribes_ThenGetsObservable() {
         subscribe()
         verifyApiIsCalled()
     }
 
     @Test
-    fun whenSubscribesTwiceThenGetsObservableOnlyOnce() {
+    fun whenSubscribesTwice_ThenGetsObservableOnlyOnce() {
         subscribe()
         reset(api)
         subscribe()
@@ -40,7 +40,7 @@ class CachedRetrofitModelTest {
     }
 
     @Test
-    fun whenExpiresThenApiIsCalledAgain() {
+    fun whenExpires_ThenApiIsCalledAgain() {
         cachedModel = CachedRetrofitModel(api, -500)
         subscribe()
         reset(api)

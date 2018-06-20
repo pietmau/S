@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView
 import com.pppp.s.main.MainActivity
 import com.pppp.s.utils.DaggerTestRule
 import io.reactivex.Observable
-import org.junit.Assert.assertTrue
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,13 +26,15 @@ class ErrorTest {
         ActivityTestRule<MainActivity>(MainActivity::class.java)
 
     @Test
-    fun whenErrorShowSnackBar() {
+    fun whenError_ShowSnackBar() {
         onView(withText(ERROR)).check(matches((isDisplayed())))
     }
 
     @Test
-    fun whenErrorShowsNothing() {
-        assertTrue(activityRule.activity.findViewById<RecyclerView>(R.id.recycler).adapter.itemCount == 0)
+    fun whenError_ShowsNothing() {
+        val recycler = activityRule.activity.findViewById<RecyclerView>(R.id.recycler)
+        val itemCount = recycler.adapter.itemCount
+        assertEquals(0, itemCount)
     }
 
     companion object {

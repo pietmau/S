@@ -54,10 +54,10 @@ class FileCache(private val context: Context) : Cache() {
         }
     }
 
-    fun close(c: Closeable?) {
-        if (c == null) return
+    private fun close(closeable: Closeable?) {
+        if (closeable == null) return
         try {
-            c.close()
+            closeable.close()
         } catch (ioException: IOException) {
             ioException.printStackTrace()
         }

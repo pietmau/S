@@ -3,6 +3,7 @@ package com.pppp.s.main.presenter
 import com.pppp.s.main.model.CachedModel
 import com.pppp.s.main.model.pokos.Movie
 import com.pppp.s.main.view.MainView
+import com.pppp.s.plusAssign
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -19,20 +20,22 @@ class MainPresenter(
 
     fun bind(view: MainView) {
         this.view = view
-        ffff()
+        subscribe()
     }
 
-    private fun ffff() {
+    private fun subscribe() {
         val disposable =
             getMovies().subscribe({ movies -> onNewData(movies) }, { error -> onError(error) })
         compositeDisposable.add(disposable)
     }
 
     private fun onError(it: Throwable) {
+        stopRefreshing()
         view?.onError(it)
     }
 
     fun onNewData(movies: List<Movie>) {
+        stopRefreshing()
         view?.onNewData(movies)
     }
 
@@ -42,10 +45,9 @@ class MainPresenter(
     }
 
     fun onQueryTextChange(query: String?): Boolean {
-        val disposable = getMovies()
+        compositeDisposable += getMovies()
             .map { movies -> filterer.filter(movies, query, this) }
             .subscribe({}, {})
-        compositeDisposable.add(disposable)
         return true
     }
 
@@ -56,7 +58,11 @@ class MainPresenter(
             .observeOn(mainThreadScheduler)
     }
 
-    fun refresh() {
-        ffff()
+    fun refresh() {// It is not a real force refresh
+        subscribe()
+    }
+
+    fun stopRefreshing() {
+        view?.stopRefreshing()
     }
 }

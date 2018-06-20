@@ -28,7 +28,7 @@ class MainActivityTest {
     var activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun whenGetsMoviesTheyShow() {
+    fun whenGetsMovies_TheyShow() {
         val rotationIdlingResource = RotationIdlingResource(activityRule.activity)
         IdlingRegistry.getInstance().register(rotationIdlingResource)
         //The test will fail in landscape because there is not enough space on screen
@@ -38,7 +38,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun whenFilteredDisappears() {
+    fun whenFiltered_Disappears() {
         val idlingResource = EmptyRecyclerIdlingResource(activityRule.activity)
         onView(withId(R.id.searchView)).perform(typeSearchViewText(SOME_TEXT))
         IdlingRegistry.getInstance().register(idlingResource)

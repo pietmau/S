@@ -27,5 +27,6 @@ data class Movie(
 
 ) : Comparable<Movie> {
 
-    override fun compareTo(other: Movie) = title.compareTo(other.title)
+    // Now sort by genre also!
+    override fun compareTo(other: Movie) = compareValuesBy(this, other, { it.title },{it.genre})
 }

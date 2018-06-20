@@ -13,7 +13,7 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 /** Cached */
-class RetrofitApi(
+class RetrofitApi(// TODO encapsulate in Network class and replace
     baseUrl: String,
     apiTimeOutInSeconds: Long = 60,
     dir: File
