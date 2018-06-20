@@ -7,7 +7,7 @@ import com.pppp.s.main.model.CachedModel
 import com.pppp.s.main.model.ModelWithRepository
 import com.pppp.s.main.model.cache.Cache
 import com.pppp.s.main.model.cache.CompositeCache
-import com.pppp.s.main.model.cache.database.DatabaseCache
+import com.pppp.s.main.model.cache.file.FileCache
 import com.pppp.s.main.model.cache.memory.SimpleMemoryCache
 import com.pppp.s.main.model.repository.Repository
 import com.pppp.s.main.model.repository.RetrofitCachedRepository
@@ -39,7 +39,7 @@ class MainModule(private val fragment: Fragment) {
         CompositeCache(
             10 * 60 * 1000,
             SimpleMemoryCache(),
-            DatabaseCache(fragment.requireContext())
+            FileCache(fragment.requireContext())
         )
 
     @Provides

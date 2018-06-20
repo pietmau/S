@@ -15,7 +15,7 @@ class RetrofitCachedRepository(
     private fun getMoviesFromNetwork(): List<Movie> {
         val movies = getMoviesSync()
         if (movies != null) {
-            cache.putMovies(movies)
+            cache.putMovies(movies, System.currentTimeMillis())
         }
         return movies ?: emptyList()
     }

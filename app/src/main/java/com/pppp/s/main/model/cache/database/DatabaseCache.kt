@@ -13,10 +13,11 @@ class DatabaseCache(context: Context) : Cache() {
         val appContext = context.getApplicationContext()
         db = Room.databaseBuilder(appContext, MoviesDatabase::class.java, "database").build()
     }
-
+    @Synchronized
     override fun getMovies(): List<Movie>? = db.moviesdao().getAll()
 
+    @Synchronized
     override fun putMovies(movies: List<Movie>, timestamp: Long) {
-        db.moviesdao().insertAll(movies.map { movie -> movie.copy(timestamp = timestamp) }.toList())
+        db.moviesdao().insertAll(movies.map { movie -> movie.copy(timestamp = timestamp) })
     }
 }
